@@ -1,4 +1,4 @@
-"""ask_yuls URL Configuration
+"""RoboTP URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from questions import views
-from django.conf import settings
-from django.conf.urls.static import static
+from question import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+
     path('', views.index, name='index'),
     path('base', views.base, name='base'),
-    path('admin/', admin.site.urls),
+    path('tmp', views.tmp, name='tmp'),
 ]
