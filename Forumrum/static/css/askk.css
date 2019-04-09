@@ -1,0 +1,146 @@
+
+.maruuuu {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    color: #721c24;
+}
+
+.question{
+    background-color: #e7e7f0;
+    border: solid;
+    padding: 15px;
+    margin: 20px 0px 20px 0px;
+    border-radius: 5px;
+}
+
+.ava {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    width:100px;
+    height:100px;
+    background: #30006f;
+    border: 1px solid #30006f;
+    border-radius: 50%;
+}
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.navbar {
+    padding: 0px 20px 0px 0px;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+    padding: 80px 15px 0;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+    font-size: 80%;
+}
+
+.question_item {
+    background-color: #fdfefe;
+    padding: 15px 15px 15px 15px;
+    margin: 20px 0px 20px 0px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px #0000ff;
+}
+
+.one_question_item {
+    background-color: #e7e7f0;
+    box-shadow: 0px 0px 5px 2px #e7e7f0;
+    padding: 15px;
+    margin: 20px 0px 20px 0px;
+    border-radius: 5px;
+}
+
+.answer_item {
+    background-color: #fefefe;
+    padding: 15px;
+    margin: 20px 0px 20px 0px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0000ff;
+    border-radius: 5px;
+}
+
+
+.my_btn {
+    margin: 10px;
+}
+
+.my_btn1 {
+    vertical-align: middle;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+.my_btn1:hover {
+    background: #0000ff;
+    box-shadow: 0px 0px 5px 2px #0000ff;
+}
+.my_btn1:active {
+    background: #00007f;
+}
+
+.my_btn2 {
+    vertical-align: middle;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+.my_btn2:hover {
+    background: #ff0000;
+    box-shadow: 0px 0px 5px 2px #ff0000;
+}
+.my_btn2:active {
+    background: #7f0000;
+}
+
+.ava img{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    max-width:100%;
+    max-height: 100%;
+}
+
+.sidebar {
+    box-shadow: 0px 0px 5px 2px #9b9b9b;
+    border-radius: 5px;
+
+    padding: 15px;
+    margin: 20px 0px 0px 0px;
+}
+
+.img-thumbnail {
+    width: 150px;
+    height: 150px;
+}

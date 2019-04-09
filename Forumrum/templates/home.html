@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1></h1>
+
+    {% block question %}
+        {% include "card.html" %}
+        {% include "card.html" %}
+        {% include "card.html" %}
+        {% include "card.html" %}
+
+    {% endblock %}
+
+{% endblock %}

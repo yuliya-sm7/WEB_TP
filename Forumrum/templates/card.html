@@ -1,0 +1,24 @@
+{% load static %}
+{% block question %}
+
+<div class="row question">
+    <div class="col-3">
+        <div class="row">
+            <image src={% static "img/Internet.png" %} class="ava"></image>
+        </div>
+        <div class="row">
+            <button>
+                <p>Лайк/Дизлайк</p>
+            </button>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="row">
+            <h2>Первый вопрос</h2>
+        </div>
+        <div class="row">
+            <p>Как тут прогать?</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
