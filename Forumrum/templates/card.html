@@ -4,17 +4,16 @@
 <div class="row question">
     <div class="col-3">
         <div class="row">
-            <image src={% static "img/Internet.png" %} class="ava"></image>
+            <image class="ava" src="{% static "img/Internet.png" %}"></image>
+            <a href="{% url 'profile' %}">Насяльника</a>
         </div>
         <div class="row">
-            <button>
-                <p>Лайк/Дизлайк</p>
-            </button>
+            <button>Лайк/Дизлайк</button>
         </div>
     </div>
     <div class="col-9">
         <div class="row">
-            <h2>Первый вопрос</h2>
+            <h3>Первый вопрос</h3>
         </div>
         <div class="row">
             <p>Как тут прогать?</p>

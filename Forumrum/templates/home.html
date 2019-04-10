@@ -2,14 +2,19 @@
 {% load static %}
 
 {% block content %}
-    <h1></h1>
+    <main role="main" class="container">
+        <div class="row">
+            <a href="{% url 'home' %}" class="col-4 btn btn-outline-danger">Новые</a>
+            <a href="{% url 'home' %}" class="col-4 btn btn-outline-danger">Рейтинг</a>
+            <a href="{% url 'home' %}" class="col-4 btn btn-outline-danger">Понравилось</a>
+        </div>
+    </main>
 
     {% block question %}
         {% include "card.html" %}
         {% include "card.html" %}
         {% include "card.html" %}
         {% include "card.html" %}
-
     {% endblock %}
 
 {% endblock %}

@@ -23,12 +23,12 @@ urlpatterns = [
 
     path('', views.home, name='home'),
 
-    path('accounts/login/', vs.LoginView.as_view(), name='login'),
+    path('accounts/login', vs.LoginView.as_view(), name='login'),
 
-    path('tmp/', views.tmp, name='tmp'),
+    path('tmp', views.tmp, name='tmp'),
 
-    path('profile/', views.tmp, name='profile'),
+    path('profile', views.profile, name='profile'),
 
-    path('ask/', views.ask, name='ask'),
+    path('ask', views.ask, name='ask'),
 
 ]

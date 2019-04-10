@@ -6,7 +6,6 @@
 
 .question{
     background-color: #e7e7f0;
-    border: solid;
     padding: 15px;
     margin: 20px 0px 20px 0px;
     border-radius: 5px;
@@ -18,9 +17,16 @@
     position: relative;
     width:100px;
     height:100px;
-    background: #30006f;
-    border: 1px solid #30006f;
+    border: 2px solid green;
     border-radius: 50%;
+}
+
+
+.logo {
+    margin-right: 20px;
+    position: relative;
+    width: 70px;
+    height: 70px;
 }
 
 
@@ -50,7 +56,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-    padding: 80px 15px 0;
+    padding: 0px 15px 0;
 }
 
 .footer > .container {
@@ -137,7 +143,7 @@ code {
     border-radius: 5px;
 
     padding: 15px;
-    margin: 20px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 .img-thumbnail {
