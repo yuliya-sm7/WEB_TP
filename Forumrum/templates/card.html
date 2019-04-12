@@ -1,23 +1,22 @@
 {% load static %}
 {% block question %}
 
-<div class="row question">
-    <div class="col-3">
-        <div class="row">
-            <image class="ava" src="{% static "img/Internet.png" %}"></image>
-            <a href="{% url 'profile' %}">Насяльника</a>
+    <div class="row question">
+        <div class="col-3">
+            <div class="row">
+                <image class="ava" src="{% static "img/Internet.png" %}"></image>
+                <a href="{% url 'profile' %}">Автор: Автор</a>
+            </div>
+            <button>Лайк</button>
+            <button>Дизлайк</button>
         </div>
-        <div class="row">
-            <button>Лайк/Дизлайк</button>
+        <div class="col-9">
+            <div class="row">
+                <h3><a href="{% url 'ans' %}">Первый вопрос</a></h3>
+            </div>
+            <div class="row">
+                <p>Как тут прогать?</p>
+            </div>
         </div>
     </div>
-    <div class="col-9">
-        <div class="row">
-            <h3>Первый вопрос</h3>
-        </div>
-        <div class="row">
-            <p>Как тут прогать?</p>
-        </div>
-    </div>
-</div>
 {% endblock %}

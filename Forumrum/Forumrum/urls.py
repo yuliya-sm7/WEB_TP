@@ -31,4 +31,6 @@ urlpatterns = [
 
     path('ask', views.ask, name='ask'),
 
+    path('ans', views.ans, name='ans'),
+
 ]

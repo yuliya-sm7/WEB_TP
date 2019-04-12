@@ -1,7 +1,7 @@
 
-.maruuuu {
-    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    color: #721c24;
+.tagss {
+    font-size:16px;
+    font-weight:bold;
 }
 
 .question{
@@ -17,7 +17,7 @@
     position: relative;
     width:100px;
     height:100px;
-    border: 2px solid green;
+    border: 2px solid gray;
     border-radius: 50%;
 }
 
@@ -139,11 +139,10 @@ code {
 }
 
 .sidebar {
-    box-shadow: 0px 0px 5px 2px #9b9b9b;
+    box-shadow: 0px 0px 10px 1px gray;
     border-radius: 5px;
-
     padding: 15px;
-    margin: 0px 0px 0px 0px;
+
 }
 
 .img-thumbnail {

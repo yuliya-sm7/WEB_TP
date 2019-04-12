@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p><b>Введите ваш вопрос:</b></p>
-    <p><textarea rows="10" cols="45" name="text"></textarea></p>
-    <p><input type="submit" value="Отправить"></p>
+    <h3><b>Введите ваш вопрос:</b></h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Заголовок вопроса</label>
+            <input type="text" class="form-control" placeholder="" value="" required>
+        </div>
+    </div>
+
+    <textarea rows="10" cols="80" name="text" placeholder="Введите подробное описание проблемы"></textarea>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Тэги</label>
+            <input type="text" class="form-control" placeholder="" value="" required>
+        </div>
+    </div>
+    <input type="submit" value="Отправить">
 {% endblock %}
