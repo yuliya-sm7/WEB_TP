@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+
 def home(request):
     return render(request, 'home.html')
 
@@ -18,8 +19,14 @@ def base(request):
 def ask(request):
     return render(request, 'new_question.html')
 
+
 def ans(request):
     return render(request, 'answers.html')
+
+
+def reg(request):
+    return render(request, 'registration/registration.html')
+
 
 @login_required
 def tmp(request):

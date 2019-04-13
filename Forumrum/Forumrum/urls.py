@@ -33,4 +33,6 @@ urlpatterns = [
 
     path('ans', views.ans, name='ans'),
 
+    path('reg', views.reg, name='reg'),
+
 ]
