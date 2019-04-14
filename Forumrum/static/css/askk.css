@@ -6,7 +6,7 @@
 .vertical_line{
     border-left-width: 2px;
     border-left-style: solid;
-    border-color: #007bff;
+    border-color: green;
     padding-left: 10px;
     margin-left: 10px;
 
@@ -54,6 +54,13 @@ body {
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
+}
+
+.sidebar {
+    box-shadow: 0px 0px 10px 1px gray;
+    border-radius: 5px;
+    padding: 15px;
+    height: 80%;
 }
 
 .navbar {
@@ -145,13 +152,6 @@ code {
     transform: translate(-50%, -50%);
     max-width:100%;
     max-height: 100%;
-}
-
-.sidebar {
-    box-shadow: 0px 0px 10px 1px gray;
-    border-radius: 5px;
-    padding: 15px;
-
 }
 
 .img-thumbnail {

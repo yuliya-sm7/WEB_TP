@@ -1,10 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+
+    {% include "card.html" %}
+
+    {% for answer in answers %}
+        <div class="media answer_item">
+            <div class="media-left mr-4">
+                <table>
+                    <tr>
+                        <td align="center">
+                            {% if user.id == question.author.id %}
+                                <button class="my_btn1 js-approve-answer" data-answer_id="{{ answer.id }}"></button>
+                                {% csrf_token %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            {% if answer.approved %}
+                                <a>Одобрен</a>
+                                {% csrf_token %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <img class="ava" src="{{ MEDIA_URL }}{{ answer.author.upload }}" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <a href="{% url 'profile' answer.author.id %}">{{ answer.author }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                        <span>
+                            <button class="my_btn2 js-like-answer" data-answer_id="{{ answer.id }}"
+                                    data-like_type="dislike"></button>
+                            {% csrf_token %}
+                            <a>{{ answer.rating }}</a>
+                            <button class="my_btn1 js-like-answer" data-answer_id="{{ answer.id }}"
+                                    data-like_type="like"></button>
+                            {% csrf_token %}
+                        </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="media-body">
+                <a>
+                    <h4>{{ answer.title }}</h4>
+                </a>
+                <p>{{ answer.text }}</p>
+                <p>{{ answer.create_date }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% block paginator %}
+        {% include "paginator.html" %}
+    {% endblock %}
+
+
+    <form class="form-horizontal" action="{{ request.path }}" method="post">
+        {% csrf_token %}
+        <div class="col-md-8">
+            <h4>Напишите свой ответ:</h4>
+            <textarea rows="3" cols="60" name="text" placeholder="Ваш ответ"></textarea>
+            <input type="submit" value="Ответить" class="btn btn-success"/>
+        </div>
+    </form>
+
+{% endblock %}

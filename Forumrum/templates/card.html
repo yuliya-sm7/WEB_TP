@@ -4,18 +4,18 @@
     <div class="row question">
         <div class="col-3">
             <div class="row">
-                <image class="ava" src="{% static "img/Internet.png" %}"></image>
-                <a href="{% url 'profile' %}">Автор: Автор</a>
+                <img class="ava" src="{% static "img/Internet.png" %}" alt="">
+                <a href="{% url 'profile' q.author %}">Автор: {{ q.author }}</a>
             </div>
             <button>Лайк</button>
             <button>Дизлайк</button>
         </div>
         <div class="col-9">
             <div class="row">
-                <h3><a href="{% url 'ans' %}">Первый вопрос</a></h3>
+                <h3><a href="{% url 'ans' q.id %}">{{ q.title }}</a></h3>
             </div>
             <div class="row">
-                <p>Как тут прогать?</p>
+                <p>{{ q.text }}</p>
             </div>
         </div>
     </div>

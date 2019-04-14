@@ -15,16 +15,15 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
         </form>
 
-        <div class="col-1 vertical_line">
-                <img class=" logo" src="/static/img/Logo.png" alt="">
-        </div>
-        <div class="col-1">
-                <a href="{% url 'profile' %}">Игорь</a>
-        </div>
-
+        {% if user.is_authenticated %}
+            <div class="col-1 vertical_line">
+                <img class="logo" src="{{ MEDIA_URL }}{{ user.upload }}" alt="">
+            </div>
+            <div class="col-1">
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'profile' user.username %}">{{ user.username }}</a>
+            </div>
+        {% else %}
+            <a class="col-md-2 btn btn-outline-primary my_btn btn-lg" href="{% url 'login' %}">Вход</a>
+        {% endif %}
     </div>
 {% endblock %}
-
-{% comment %}
-<a class="col-md-2 btn btn-outline-primary my_btn btn-lg" href="{% url 'login' %}">Вход</a>
-{% endcomment %}

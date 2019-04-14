@@ -1,18 +1,22 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import Http404, HttpResponseForbidden as Http403, HttpResponse
+from django.contrib.auth.decorators import login_required
+
+from question.models import *
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {
+        'questions': paginate(request, Question.objects.all()),
+        'page_objects': paginate(request, Question.objects.all()),
+    })
 
 
-def base(request):
-    objects = ['john', 'paul', 'george', 'ringo']
-    p = Paginator(objects, 2)
-    return render(request, 'base.html', {
-        'page_objects': Paginator(request, objects),
+def new(request):
+    return render(request, 'home.html', {
+        'questions': paginate(request, Question.objects.get_new()),
+        'page_objects': paginate(request, Question.objects.all()),
     })
 
 
@@ -20,8 +24,13 @@ def ask(request):
     return render(request, 'new_question.html')
 
 
-def ans(request):
-    return render(request, 'answers.html')
+def ans(request, question_id):
+    question = Question.objects.get_by_id(int(question_id)).first()
+    if question is not None:
+        answers = paginate(request, objects_list=Answer.objects.get_hot_for_answer(question.id))
+        return render(request, 'answers.html', {'q': question, 'answers': answers, 'user': question.author})
+    else:
+        raise Http404
 
 
 def reg(request):
@@ -33,5 +42,22 @@ def tmp(request):
     return render(request, 'tmp.html')
 
 
-def profile(request):
-    return render(request, 'profile.html')
+def profile(request, username):
+    user = User.objects.by_username(username)
+    if user is not None:
+        return render(request, 'profile.html', {'profile': user})
+    else:
+        raise Http404
+
+
+def paginate(request, objects_list):
+    paginator = Paginator(objects_list, 3)
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+
+    return objects
