@@ -10,6 +10,8 @@ def home(request):
     return render(request, 'home.html', {
         'questions': paginate(request, Question.objects.all()),
         'page_objects': paginate(request, Question.objects.all()),
+        'tags': paginate(request, Tag.objects.hottest()),
+        'users': paginate(request, User.objects.by_rating()),
     })
 
 
@@ -28,7 +30,7 @@ def ans(request, question_id):
     question = Question.objects.get_by_id(int(question_id)).first()
     if question is not None:
         answers = paginate(request, objects_list=Answer.objects.get_hot_for_answer(question.id))
-        return render(request, 'answers.html', {'q': question, 'answers': answers, 'user': question.author})
+        return render(request, 'answers.html', {'q': question, 'answers': answers})
     else:
         raise Http404
 
@@ -50,6 +52,14 @@ def profile(request, username):
         raise Http404
 
 
+def tag(request, tag):
+    return render(request, 'home.html', {
+        'questions': paginate(request, Question.objects.get_by_tag(tag_name=tag)),
+        'tags': paginate(request, Tag.objects.hottest()),
+        'users': paginate(request, User.objects.by_rating()),
+    })
+
+
 def paginate(request, objects_list):
     paginator = Paginator(objects_list, 3)
     page = request.GET.get('page')
@@ -59,5 +69,4 @@ def paginate(request, objects_list):
         objects = paginator.page(1)
     except EmptyPage:
         objects = paginator.page(paginator.num_pages)
-
     return objects

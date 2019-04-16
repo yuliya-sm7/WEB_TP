@@ -4,30 +4,28 @@
 
 {% block content %}
     <h1>{{ profile.username }}</h1>
-    <div class="masthead-lead">
-        <div class="avatar-block">
-            <img class="avatar" src="/media/{{ profile.upload }}">
-        </div>
-        <div class="profile-info-block">
-            <h4><i>First name: </i> {{ profile.first_name }}</h4>
-            <h4><i>Last name: </i>{{ profile.last_name }}</h4>
-            <h4><i>Email: </i>{{ profile.email }}</h4>
-            <hr>
-            <h4>
-                <i>Questions: </i>{{ profile.question_set.all | length }}
-                <i>Answers: </i>{{ profile.answer_set.all | length }}
-            </h4>
-        </div>
-        <hr>
-
-        <div class="activity">
-            <table>
-                <tr>
-                    <th><h3>Questions</h3></th>
-                    <th><h3>Answers</h3></th>
-                </tr>
-            </table>
-        </div>
-
-    </div>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th scope="row">Имя</th>
+            <td>{{ profile.first_name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Фамилия</th>
+            <td>{{ profile.last_name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Почта</th>
+            <td>{{ profile.email }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Аватар</th>
+            <td><img class="ava" src="/media/{{ profile.upload }}">
+                {% if user.is_authenticated and user.id == profile.id %}
+                    <input type="file" class="form-control-file" name="avatar">
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}

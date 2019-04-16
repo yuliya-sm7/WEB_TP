@@ -3,16 +3,10 @@
 
 {% block content %}
     <main role="main" class="container">
-        <div class="row">
+        <div class="row mb-3">
             <a href="{% url 'new' %}" class="col-4 btn btn-outline-danger">Новые</a>
             <a href="{% url 'home' %}" class="col-4 btn btn-outline-danger">Рейтинг</a>
-            <a href="" class="col-4 btn btn-outline-danger dropdown-toggle" id="dropdown03"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">По тегам</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown03">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <a href="" class="col-4 btn btn-outline-danger">По тегу: (Не выбран)</a>
         </div>
     </main>
 

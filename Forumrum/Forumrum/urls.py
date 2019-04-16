@@ -6,7 +6,6 @@ from django.contrib.auth import views as vs
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -20,7 +19,7 @@ urlpatterns = [
 
     url(r'^user/(?P<username>[a-zA-Zа-яА-Я_\-\.0-9]+?)$', views.profile, name='profile'),
 
-    path('profile', views.profile, name='profile'),
+    url(r'^tag/(?P<tag>.*)/$', views.tag, name='tag'),
 
     path('ask', views.ask, name='ask'),
 
@@ -29,8 +28,6 @@ urlpatterns = [
     path('reg', views.reg, name='reg'),
 
 ]
-
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

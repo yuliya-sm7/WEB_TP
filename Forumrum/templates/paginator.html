@@ -1,12 +1,10 @@
-
 {% block pages %}
 
-<div class="pagination">
+    <div class="pagination">
     <span class="step-links">
         {% if page_objects.has_previous %}
             <a href="?page={{ page_objects.previous_page_number }}" class="btn-sm btn-dark"><-</a>
         {% endif %}
-
         <span class="current">
             Страница {{ page_objects.number }} из {{ page_objects.paginator.num_pages }}.
         </span>
@@ -15,6 +13,6 @@
             <a href="?page={{ page_objects.next_page_number }}" class="btn-sm btn-dark">-></a>
         {% endif %}
     </span>
-</div>
+    </div>
 
 {% endblock %}

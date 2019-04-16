@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static "css/askk.css" %}">
 
 </head>
-<body >
+<body>
 
 {% block sidebar %}
     {% include "navbar.html" %}
@@ -25,16 +25,13 @@
         </div>
         <div class="col-4 sidebar">
             <h4>Популярные тэги</h4>
-            <a class="tagss" href="">C/C++</a>
-            <a class="tagss" href="">Python</a>
-            <a class="tagss" href="">PHP</a>
-            <a class="tagss" href="">JavaScript</a>
-            <a class="tagss" href="">Немецкий язык</a>
-            <a class="tagss" href="">CSS</a>
-            <a class="tagss" href="">HTML</a>
+            {% for t in tags %}
+                <a href="{% url 'tag' t.name %}">{{ t }}</a>
+            {% endfor %}
             <h4>Топ пользователей</h4>
-            <a class="tagss" href="">ADMIN</a>
-
+            {% for u in users %}
+                <p><a href="{% url 'profile' u.username %}">{{ u }}</a></p>
+            {% endfor %}
         </div>
     </div>
 </main>

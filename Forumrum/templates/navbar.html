@@ -1,7 +1,7 @@
 {% load static %}
 {% block navbar %}
 
-    <div class="col-12 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
+    <div class="col-12 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-lg">
         <img src="/static/img/Logo.png" alt="" class="logo">
         <h1 class="my-0 mr-md-auto font-weight-normal">
             <a href="{% url 'home' %}">Forumrum</a>
@@ -16,14 +16,15 @@
         </form>
 
         {% if user.is_authenticated %}
-            <div class="col-1 vertical_line">
+            <div class="col-1 left_line">
                 <img class="logo" src="{{ MEDIA_URL }}{{ user.upload }}" alt="">
             </div>
             <div class="col-1">
-                <a class="btn btn-outline-primary btn-lg" href="{% url 'profile' user.username %}">{{ user.username }}</a>
+                <a class="btn btn-outline-primary btn-lg"
+                   href="{% url 'profile' user.username %}">{{ user.username }}</a>
             </div>
         {% else %}
-            <a class="col-md-2 btn btn-outline-primary my_btn btn-lg" href="{% url 'login' %}">Вход</a>
+            <a class="col-2 btn btn-outline-primary my_btn btn-lg" href="{% url 'login' %}">Вход</a>
         {% endif %}
     </div>
 {% endblock %}
