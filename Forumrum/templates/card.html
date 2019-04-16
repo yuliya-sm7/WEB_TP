@@ -22,11 +22,13 @@
                 <p>{{ q.text }}</p>
             </div>
             <div class="row ml-1">
-                <p class="small">Создан: {{ q.date|date:"d-m-Y" }}
+                <p class="small">
+                    Создан: {{ q.date|date:"d-m-Y" }}
                     Тэги:
                     {% for qt in q.tags.all %}
-                        <a href="{% url 'tag' qt %}">{{ qt }}</a>
+                        <a href="{% url 'tag' qt %}">{{ qt }} </a>
                     {% endfor %}
+                    Ответов: {{ q.answers.all|length }}
                 </p>
             </div>
 

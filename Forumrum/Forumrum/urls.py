@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib import admin
 from django.urls import path
 from question import views
@@ -17,13 +17,13 @@ urlpatterns = [
 
     path('accounts/login', vs.LoginView.as_view(), name='login'),
 
-    path(r'^user/(?P<username>[a-zA-Zа-яА-Я_\-\.0-9]+?)$', views.profile, name='profile'),
+    path('user/<str:username>', views.profile, name='profile'),
 
-    path(r'^tag/(?P<tag>.*)/$', views.tag, name='tag'),
+    path('tag/<str:tag>', views.tag, name='tag'),
 
     path('ask', views.ask, name='ask'),
 
-    path(r'^question/(?P<question_id>[0-9]+)/$', views.ans, name='ans'),
+    path('question/<int:question_id>/', views.ans, name='ans'),
 
     path('reg', views.reg, name='reg'),
 

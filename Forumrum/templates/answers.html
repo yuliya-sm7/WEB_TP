@@ -30,8 +30,11 @@
                 <div class="col-1">
                     <button class="btn-primary">Одобрен</button>
                 </div>
+            {% elif  q.author == user %}
+                <div class="col-1">
+                    <button class="btn-outline-success">Одобрить</button>
+                </div>
             {% endif %}
-
         </div>
 
     {% endfor %}
