@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404, HttpResponseForbidden as Http403, HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from question.forms import AskForm, UserRegistrationForm, UserLoginForm
 from question.models import *
+from django.contrib.auth import login, authenticate, logout
 
 
 def sidebar(request):
@@ -44,7 +45,29 @@ def tag(request, tag):
 
 # @login_required
 def ask(request):
-    return render(request, 'new_question.html')
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            qu = Question.objects.create(author=request.user,
+                                         date=timezone.now(),
+                                         is_active=True,
+                                         title=form.cleaned_data['title'],
+                                         text=form.cleaned_data['text'])
+            qu.save()
+
+            for tagTitle in form.cleaned_data['tags'].split():
+                tag = Tag.objects.get_or_create(name=tagTitle)[0]
+                qu.tags.add(tag)
+                qu.save()
+            # return question(request, ques.id)
+            return redirect('/question/{}/'.format(qu.id))
+    else:
+        form = AskForm()
+    return render(request, 'new_question.html', {
+        'form': form,
+        'tags': paginate(request, Tag.objects.hottest()),
+        'users': paginate(request, User.objects.by_rating()),
+    })
 
 
 def ans(request, question_id):
@@ -59,7 +82,43 @@ def ans(request, question_id):
 
 
 def reg(request):
-    return render(request, 'registration/registration.html')
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserRegistrationForm()
+        logout(request)
+    return render(request, 'registration/registration.html', {
+        'form': form,
+        'tags': paginate(request, Tag.objects.hottest()),
+        'users': paginate(request, User.objects.by_rating()),
+    })
+
+
+def signin(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/user/{}/'.format(username))
+    else:
+        form = UserLoginForm()
+        logout(request)
+    # return redirect(request.GET.get('next') )
+    return render(request, 'registration/login.html', {
+        'form': form,
+        'tags': paginate(request, Tag.objects.hottest()),
+        'users': paginate(request, User.objects.by_rating()),
+    })
 
 
 def profile(request, username):

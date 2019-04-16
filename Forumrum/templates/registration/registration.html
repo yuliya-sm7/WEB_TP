@@ -5,39 +5,23 @@
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
 
-    <table class="table table-bordered">
-        <tbody>
-        <tr>
-            <th scope="row">Никнейм</th>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <th scope="row">Имя</th>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <th scope="row">Фамилия</th>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <th scope="row">Почта</th>
-            <td><input type="email"></td>
-        </tr>
-        <tr>
-            <th scope="row">Аватар</th>
-            <td>
-                <input type="file" class="form-control-file" name="avatar">
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Новый пароль</th>
-            <td><input type="password"></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <a class="btn btn-success btn-lg" href="{% url 'reg' %}" role="button">Зарегистрироваться</a>
-    </div>
+    <form class="form-horizontal" action="{{ request.path }}" method="post">
+        {% csrf_token %}
 
+        {% for field in form %}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>{{ field.label_tag }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
+        </div>
+    </form>
 
 {% endblock %}

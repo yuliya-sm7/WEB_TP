@@ -2,20 +2,25 @@
 
 {% block content %}
     <h3><b>Введите ваш вопрос:</b></h3>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label>Заголовок вопроса</label>
-            <input type="text" class="form-control" placeholder="" value="" required>
-        </div>
-    </div>
 
-    <textarea rows="10" cols="60" name="text" placeholder="Введите подробное описание проблемы"></textarea>
+    <form class="form-horizontal" action="{{ request.path }}" method="post">
+        {% csrf_token %}
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label>Тэги</label>
-            <input type="text" class="form-control" placeholder="" value="" required>
+        {% for field in form %}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>{{ field.label_tag }}</label>
+                </div>
+                <div class="col-md-7">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <input type="submit" value="Отправить" class="btn btn-success"/>
         </div>
-    </div>
-    <input type="submit" value="Отправить">
+
+    </form>
+
 {% endblock %}

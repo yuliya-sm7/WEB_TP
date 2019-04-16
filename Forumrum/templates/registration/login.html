@@ -8,29 +8,23 @@
     <div class="row">
         <div class="col-6">
             <h4>Введите логин и пароль</h4>
-            <form method="post" action="{% url 'login' %}">
+            <form class="form-horizontal" action="{{ request.path }}" method="post">
                 {% csrf_token %}
 
-                <div class="row mt-4 mb-4">
-                    <div class="col-4">
-                        {{ form.username.label_tag }}
+                {% for field in form %}
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label>{{ field.label_tag }}</label>
+                        </div>
+                        <div class="col-md-7">
+                            {{ field }}
+                        </div>
                     </div>
-                    <div class="col-8">
-                        {{ form.username }}
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-4">
-                        {{ form.password.label_tag }}
-                    </div>
-                    <div class="col-8">
-                        {{ form.password }}
-                    </div>
-                </div>
+                {% endfor %}
 
-                <input type="submit" value="Войти" class="col-md-12 btn btn-lg btn-primary btn-block"/>
-
-                <input type="hidden" name="next" value="{{ next }}"/>
+                <div class="form-group">
+                    <input type="submit" value="Войти" class="btn btn-success"/>
+                </div>
             </form>
         </div>
 
