@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
 
-from question.managers import UserManager, TagManager, QuestionManager, AnswerManager, LikeDislikeManager
+from question.managers import UserManager, TagManager, QuestionManager, AnswerManager
 
 
 # AUTH_USER_MODEL set in settings
@@ -50,6 +50,7 @@ class Answer(models.Model):
                                  on_delete=models.CASCADE)
     text = models.TextField(verbose_name="Answer's Content")
     rating = models.IntegerField(default=0, null=False, verbose_name="Answer's Rating")
+    approved = models.BooleanField(default=False, verbose_name=u"Одобрен автором вопроса")
 
     objects = AnswerManager()
 

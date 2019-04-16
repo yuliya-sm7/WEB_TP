@@ -1,63 +1,39 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
 
     {% include "card.html" %}
 
     {% for answer in answers %}
-        <div class="media answer_item">
-            <div class="media-left mr-4">
-                <table>
-                    <tr>
-                        <td align="center">
-                            {% if user.id == question.author.id %}
-                                <button class="my_btn1 js-approve-answer" data-answer_id="{{ answer.id }}"></button>
-                                {% csrf_token %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            {% if answer.approved %}
-                                <a>Одобрен</a>
-                                {% csrf_token %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <img class="ava" src="{{ MEDIA_URL }}{{ answer.author.upload }}" alt="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <a href="{% url 'profile' answer.author.id %}">{{ answer.author }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                        <span>
-                            <button class="my_btn2 js-like-answer" data-answer_id="{{ answer.id }}"
-                                    data-like_type="dislike"></button>
-                            {% csrf_token %}
-                            <a>{{ answer.rating }}</a>
-                            <button class="my_btn1 js-like-answer" data-answer_id="{{ answer.id }}"
-                                    data-like_type="like"></button>
-                            {% csrf_token %}
-                        </span>
-                        </td>
-                    </tr>
-                </table>
+
+        <div class="row answer_item">
+            <div class="col-2">
+                <div class="row">
+                    <img class="ava" src="{{ MEDIA_URL }}{{ answer.author.upload }}" alt="">
+                </div>
+                <div class="row">
+                    <a href="{% url 'profile' answer.author %}">Автор: {{ answer.author }}</a>
+                </div>
             </div>
-            <div class="media-body">
-                <a>
-                    <h4>{{ answer.title }}</h4>
-                </a>
-                <p>{{ answer.text }}</p>
-                <p>{{ answer.create_date }}</p>
+            <div class="col-1">
+                <button class="btn-success">+</button>
+                <label>100</label>
+                <button class="btn-danger">_</button>
             </div>
+            <div class="col-7 left_line">
+                <div class="row ml-1">
+                    <p>{{ answer.text }}</p>
+                    <p>{{ answer.create_date }}</p>
+                </div>
+            </div>
+            {% if answer.approved %}
+                <div class="col-1">
+                    <button class="btn-primary">Одобрен</button>
+                </div>
+            {% endif %}
+
         </div>
+
     {% endfor %}
 
     {% block paginator %}

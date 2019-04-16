@@ -1,6 +1,6 @@
 {% block pages %}
-
-    <div class="pagination">
+    {% if page_objects.has_previous or page_objects.has_next %}
+        <div class="pagination">
     <span class="step-links">
         {% if page_objects.has_previous %}
             <a href="?page={{ page_objects.previous_page_number }}" class="btn-sm btn-dark"><-</a>
@@ -13,6 +13,6 @@
             <a href="?page={{ page_objects.next_page_number }}" class="btn-sm btn-dark">-></a>
         {% endif %}
     </span>
-    </div>
-
+        </div>
+    {% endif %}
 {% endblock %}

@@ -18,19 +18,18 @@
 <main role="main" class="container">
     <div class="row">
         <div class="col-8">
-
             {% block content %}
             {% endblock %}
-
         </div>
+
         <div class="col-4 sidebar">
             <h4>Популярные тэги</h4>
             {% for t in tags %}
-                <a href="{% url 'tag' t.name %}">{{ t }}</a>
+                <a class="tagss" href="{% url 'tag' t.name %}">{{ t }}</a>
             {% endfor %}
             <h4>Топ пользователей</h4>
             {% for u in users %}
-                <p><a href="{% url 'profile' u.username %}">{{ u }}</a></p>
+                <a  class="tagss" href="{% url 'profile' u.username %}">{{ u }}</a>
             {% endfor %}
         </div>
     </div>
