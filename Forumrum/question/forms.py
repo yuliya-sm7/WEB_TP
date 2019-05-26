@@ -109,3 +109,14 @@ class AskForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['title', 'text', 'tags']
+
+
+class AnswerForm(forms.ModelForm):
+    text = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'minlength': 1,
+        'placeholder': 'Write your answer here...'}))
+
+    class Meta:
+        model = Answer
+        fields = ['text']

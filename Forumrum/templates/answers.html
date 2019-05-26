@@ -39,18 +39,18 @@
 
     {% endfor %}
 
-    {% block paginator %}
+    {% block pages %}
         {% include "paginator.html" %}
     {% endblock %}
 
 
-    <form class="form-horizontal" action="{{ request.path }}" method="post">
-        {% csrf_token %}
+    <form class="form-horizontal" action="{{ request.path }}" method="post"> {% csrf_token %}
         <div class="col-md-8">
             <h4>Напишите свой ответ:</h4>
-            <textarea rows="3" cols="60" name="text" placeholder="Ваш ответ"></textarea>
+            <textarea rows="3" cols="60" class="form-control" name="text" placeholder="Ваш ответ"></textarea>
             <input type="submit" value="Ответить" class="btn btn-success"/>
         </div>
     </form>
+
 
 {% endblock %}

@@ -2,13 +2,13 @@
 
 {% block content %}
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <p style="color: red">{{ form.errors }}</p>
     {% endif %}
 
     <div class="row">
         <div class="col-6">
             <h4>Введите логин и пароль</h4>
-            <form class="form-horizontal" action="{{ request.path }}" method="post">
+            <form class="form-horizontal" action="{{ request.path }}" method="post"> {% csrf_token %}
                 {% csrf_token %}
 
                 {% for field in form %}

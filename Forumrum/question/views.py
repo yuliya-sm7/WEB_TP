@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
-from question.forms import AskForm, UserRegistrationForm, UserLoginForm
+from question.forms import *
 from question.models import *
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.http import require_POST
@@ -73,10 +73,27 @@ def ask(request):
 
 @login_required(login_url='/login/')
 def ans(request, question_id):
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answeredQuestion = get_object_or_404(Question, pk=question_id)
+            answer = Answer.objects.create(author=request.user,
+                                           date=timezone.now(),
+                                           text=form.cleaned_data['text'],
+                                           question=answeredQuestion)
+            answer.save()
+            return redirect('/question/{}/'.format(question_id))
+    else:
+        form = AnswerForm()
+
     question = Question.objects.get_by_id(int(question_id)).first()
     if question is not None:
         answers = paginate(request, objects_list=Answer.objects.get_hot_for_answer(question.id))
-        mapp = {'q': question, 'answers': answers, 'tags': paginate(request, Tag.objects.hottest()),
+        mapp = {'q': question,
+                'form': form,
+                'answers': answers,
+                'page_objects' : answers,
+                'tags': paginate(request, Tag.objects.hottest()),
                 'users': paginate(request, User.objects.by_rating())}
         return render(request, 'answers.html', mapp)
     else:
@@ -92,7 +109,7 @@ def reg(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             login(request, user)
-            return redirect('/')
+            return redirect('/user/{}/'.format(user.username))
     else:
         form = UserRegistrationForm()
         logout(request)
@@ -112,7 +129,7 @@ def signin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/user/{}/'.format(username))
+                return redirect('/')
                 # return redirect(request.GET.get('next') )
     else:
         form = UserLoginForm()
@@ -149,7 +166,7 @@ def like_question(request):
     print(request.POST)
     question_id = request.POST.get('question_id', '')
     like_type = request.POST.get('like_type', '')
-    question =get_object_or_404(Question, pk=question_id)
+    question = get_object_or_404(Question, pk=question_id)
     if not question:
         return JsonResponse({"status": "error"})
 
