@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('accounts/login', vs.LoginView.as_view(), name='login'),
 
+    path('accounts/logout', vs.LogoutView.as_view(), name='logout'),
+
     path('user/<str:username>', views.profile, name='profile'),
 
     path('tag/<str:tag>', views.tag, name='tag'),
@@ -25,6 +27,8 @@ urlpatterns = [
     path('question/<int:question_id>/', views.ans, name='ans'),
 
     path('reg', views.reg, name='reg'),
+
+    path('like_question/', views.like_question, name='like_question'),
 
 ]
 

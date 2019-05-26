@@ -1,13 +1,13 @@
 from django import forms
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from question.models import Question, Tag, User, Answer
 
 text_validator = RegexValidator(r"[а-яА-Яa-zA-Z]", "Текст должен содержать буквы")
 tags_validator = RegexValidator(r"[а-яА-Яa-zA-Z]", "Тэги состоят из букв")
-password_validator = RegexValidator(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
-                                    "Пароль - 8 символов. Буквы и цифры")
+password_validator = RegexValidator(r"(?=.*\d){2,}$",
+                                    "Пароль - минимум 2 символа.")
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -45,6 +45,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(UserRegistrationForm, self).clean()
+        print(cleaned_data)
         password = cleaned_data.get("password")
         password_confirmation = cleaned_data.get("password_confirmation")
 

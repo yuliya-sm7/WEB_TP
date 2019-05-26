@@ -1,36 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table class="table table-bordered">
-        <tbody>
-        <tr>
-            <th scope="row">Никнейм</th>
-            <td> <h3>{{ profile.username }}</h3></td>
-        </tr>
-        <tr>
-            <th scope="row">Имя</th>
-            <td>{{ profile.first_name }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Фамилия</th>
-            <td>{{ profile.last_name }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Почта</th>
-            <td>{{ profile.email }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Аватар</th>
-            <td><img class="ava" src="{{ MEDIA_URL }}{{ profile.upload }}" alt="">
-                {% if user.is_authenticated and user.id == profile.id %}
-                    <input type="file" class="form-control-file" name="avatar">
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Дата регистрации: </th>
-            <td>{{ profile.registration_date }}</td>
-        </tr>
-        </tbody>
-    </table>
+
+    {% if user.is_authenticated and user.id == profile.id %}
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th scope="row">Никнейм</th>
+                <td><h3>{{ profile.username }}</h3></td>
+            </tr>
+            <tr>
+                <th scope="row">Имя</th>
+                <td>{{ profile.first_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Фамилия</th>
+                <td>{{ profile.last_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Почта</th>
+                <td>{{ profile.email }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Аватар</th>
+                <td><img class="ava" src="{{ MEDIA_URL }}{{ profile.upload }}" alt="">
+                    {% if user.is_authenticated and user.id == profile.id %}
+                        <input type="file" class="form-control-file" name="avatar">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Дата регистрации:</th>
+                <td>{{ profile.registration_date }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="col-2 btn btn-danger my_btn btn-lg" href="{% url 'logout' %}">Выйти</a>
+
+    {% else %}
+        <h2 style="color: red"> Access error </h2>
+    {% endif %}
+
 {% endblock %}

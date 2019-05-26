@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <p style="color: red">{{form.errors}}</p>
     {% endif %}
 
     <form class="form-horizontal" action="{{ request.path }}" method="post">

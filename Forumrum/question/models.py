@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
 
-from question.managers import UserManager, TagManager, QuestionManager, AnswerManager
+from question.managers import *
 
 
 # AUTH_USER_MODEL set in settings
@@ -56,3 +56,14 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Like(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+
+    objects = LikeManager()
+
+    def __str__(self):
+        return self.author + " liked"

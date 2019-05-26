@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import Http404, HttpResponseForbidden as Http403, HttpResponse
+from django.http import Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
 from question.forms import AskForm, UserRegistrationForm, UserLoginForm
 from question.models import *
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.http import require_POST
 
 
 def sidebar(request):
-    return {
-        'tags': paginate(request, Tag.objects.hottest()),
-        'users': paginate(request, User.objects.by_rating()),
-    }
+    tags = Tag.objects.hottest()[:10]
+    users = User.objects.by_rating()[:10]
+    return {'tags': tags,
+            'users': users}
 
 
 def home(request):
@@ -43,7 +44,7 @@ def tag(request, tag):
     return render(request, 'home.html', mapp)
 
 
-# @login_required
+@login_required(login_url='/login/')
 def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
@@ -70,6 +71,7 @@ def ask(request):
     })
 
 
+@login_required(login_url='/login/')
 def ans(request, question_id):
     question = Question.objects.get_by_id(int(question_id)).first()
     if question is not None:
@@ -82,6 +84,7 @@ def ans(request, question_id):
 
 
 def reg(request):
+    print(request.POST)
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -110,10 +113,10 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 return redirect('/user/{}/'.format(username))
+                # return redirect(request.GET.get('next') )
     else:
         form = UserLoginForm()
         logout(request)
-    # return redirect(request.GET.get('next') )
     return render(request, 'registration/login.html', {
         'form': form,
         'tags': paginate(request, Tag.objects.hottest()),
@@ -139,3 +142,21 @@ def paginate(request, objects_list):
     except EmptyPage:
         objects = paginator.page(paginator.num_pages)
     return objects
+
+
+@require_POST
+def like_question(request):
+    print(request.POST)
+    question_id = request.POST.get('question_id', '')
+    like_type = request.POST.get('like_type', '')
+    question =get_object_or_404(Question, pk=question_id)
+    if not question:
+        return JsonResponse({"status": "error"})
+
+    if (like_type == 'like'):
+        question.rating += 1
+    elif (like_type == 'dislike'):
+        question.rating -= 1
+    question.save()
+
+    return JsonResponse({"status": "ok"})

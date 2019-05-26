@@ -43,3 +43,20 @@ class TagManager(models.Manager):
 
     def hottest(self):
         return self.annotate(question_count=Count('questions')).order_by('-question_count')
+
+
+class LikeManager(models.Manager):
+    def liked(self):
+        return self.get_queryset().filter(vote__gt=0)
+
+    def disliked(self):
+        return self.get_queryset().filter(vote__lt=0)
+
+    def rating(self):
+        return self.get_queryset().aggregate(Sum('vote')).get('vote__sum') or 0
+
+    def questions(self):
+        return self.get_queryset().filter(content_type__model='question').order_by('-question__create_date')
+
+    def answers(self):
+        return self.get_queryset().filter(content_type__model='answer').order_by('-answer__create_date')
