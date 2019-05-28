@@ -6,8 +6,8 @@ from question.models import Question, Tag, User, Answer
 
 text_validator = RegexValidator(r"[а-яА-Яa-zA-Z]", "Текст должен содержать буквы")
 tags_validator = RegexValidator(r"[а-яА-Яa-zA-Z]", "Тэги состоят из букв")
-password_validator = RegexValidator(r"(?=.*\d){2,}$",
-                                    "Пароль - минимум 2 символа.")
+password_validator = RegexValidator(r"\d{0,5}",
+                                    "Пароль только числовой.")
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -45,7 +45,6 @@ class UserRegistrationForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(UserRegistrationForm, self).clean()
-        print(cleaned_data)
         password = cleaned_data.get("password")
         password_confirmation = cleaned_data.get("password_confirmation")
 

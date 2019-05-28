@@ -20,6 +20,8 @@ urlpatterns = [
 
     path('user/<str:username>', views.profile, name='profile'),
 
+    path('user/<str:username>/edit', views.profile_edit, name='profile_edit'),
+
     path('tag/<str:tag>', views.tag, name='tag'),
 
     path('ask', views.ask, name='ask'),
@@ -29,6 +31,10 @@ urlpatterns = [
     path('reg', views.reg, name='reg'),
 
     path('like_question/', views.like_question, name='like_question'),
+
+    path('like_answer/', views.like_answer, name='like_answer'),
+
+    path('approve_answer/', views.approve_answer, name='approve_answer'),
 
 ]
 

@@ -44,7 +44,7 @@ def tag(request, tag):
     return render(request, 'home.html', mapp)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
@@ -71,7 +71,6 @@ def ask(request):
     })
 
 
-@login_required(login_url='/login/')
 def ans(request, question_id):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
@@ -101,15 +100,15 @@ def ans(request, question_id):
 
 
 def reg(request):
-    print(request.POST)
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             user.set_password(form.cleaned_data['password'])
             user.save()
+            print(user.upload)
             login(request, user)
-            return redirect('/user/{}/'.format(user.username))
+            return redirect('/')
     else:
         form = UserRegistrationForm()
         logout(request)
@@ -149,6 +148,12 @@ def profile(request, username):
         raise Http404
 
 
+def profile_edit(request, username):
+    user = get_object_or_404(User, username=request.user)
+    form = UserRegistrationForm()
+    return render(request, 'profile_edit.html', {'user': user, 'form': form})
+
+
 def paginate(request, objects_list):
     paginator = Paginator(objects_list, 3)
     page = request.GET.get('page')
@@ -162,8 +167,8 @@ def paginate(request, objects_list):
 
 
 @require_POST
+@login_required(login_url='login')
 def like_question(request):
-    print(request.POST)
     question_id = request.POST.get('question_id', '')
     like_type = request.POST.get('like_type', '')
     question = get_object_or_404(Question, pk=question_id)
@@ -175,5 +180,37 @@ def like_question(request):
     elif (like_type == 'dislike'):
         question.rating -= 1
     question.save()
+
+    return JsonResponse({"status": "ok"})
+
+
+@require_POST
+@login_required(login_url='login')
+def like_answer(request):
+    answer_id = request.POST.get('answer_id', '')
+    like_type = request.POST.get('like_type', '')
+    answer =get_object_or_404(Answer, pk=answer_id)
+    if not answer:
+        return JsonResponse({"status": "error"})
+
+    if (like_type == 'like'):
+        answer.rating += 1
+    elif (like_type == 'dislike'):
+        answer.rating -= 1
+    answer.save()
+
+    return JsonResponse({"status": "ok"})
+
+
+@require_POST
+@login_required(login_url='login')
+def approve_answer(request):
+    answer_id = request.POST.get('answer_id', '')
+    answer =get_object_or_404(Answer, pk=answer_id)
+    if not answer:
+        return JsonResponse({"status": "error"})
+
+    answer.approved = not answer.approved
+    answer.save()
 
     return JsonResponse({"status": "ok"})

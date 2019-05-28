@@ -2,8 +2,6 @@
 
 {% block content %}
 
-    {% if user.is_authenticated and user.id == profile.id %}
-
         <table class="table table-bordered">
             <tbody>
             <tr>
@@ -37,10 +35,9 @@
             </tbody>
         </table>
 
+    {% if user.is_authenticated and user.id == profile.id %}
+        <a class="col-2 btn btn-primary my_btn btn-lg" href="{% url 'profile_edit' user %} ">Изменить</a>
         <a class="col-2 btn btn-danger my_btn btn-lg" href="{% url 'logout' %}">Выйти</a>
-
-    {% else %}
-        <h2 style="color: red"> Access error </h2>
     {% endif %}
 
 {% endblock %}

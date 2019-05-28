@@ -10,9 +10,9 @@
             </div>
         </div>
         <div class="col-1">
-            <button class="btn-success js-like-question" data-question_id="{{ q.id }}" data-like_type="like">+</button>
+            <button class="btn-success js-like-question" data-question_id="{{ q.id }}" data-like_type="like">+</button> {% csrf_token %}
             <label>{{ q.rating }}</label>
-            <button class="btn-danger js-like-question" data-question_id="{{ q.id }}" data-like_type="dislike">_</button>
+            <button class="btn-danger js-like-question" data-question_id="{{ q.id }}" data-like_type="dislike">_</button> {% csrf_token %}
         </div>
         <div class="col-8 left_line">
             <div class="row ml-1">

@@ -16,9 +16,13 @@
                 </div>
             </div>
             <div class="col-1">
-                <button class="btn-success">+</button>
-                <label>100</label>
-                <button class="btn-danger">_</button>
+                <button class="btn-success js-like-answer" data-answer_id="{{ answer.id }}" data-like_type="like">+
+                </button>
+                {% csrf_token %}
+                <label>{{ answer.rating }}</label>
+                <button class="btn-danger js-like-answer" data-answer_id="{{ answer.id }}" data-like_type="dislike">_
+                </button>
+                {% csrf_token %}
             </div>
             <div class="col-7 left_line">
                 <div class="row ml-1">
@@ -32,7 +36,9 @@
                 </div>
             {% elif  q.author == user %}
                 <div class="col-1">
-                    <button class="btn-outline-success">Одобрить</button>
+                    <button class="btn-outline-success js-approve-answer" data-answer_id="{{ answer.id }}">Одобрить
+                    </button>
+                    {% csrf_token %}
                 </div>
             {% endif %}
         </div>
@@ -44,13 +50,17 @@
     {% endblock %}
 
 
-    <form class="form-horizontal" action="{{ request.path }}" method="post"> {% csrf_token %}
-        <div class="col-md-8">
-            <h4>Напишите свой ответ:</h4>
-            <textarea rows="3" cols="60" class="form-control" name="text" placeholder="Ваш ответ"></textarea>
-            <input type="submit" value="Ответить" class="btn btn-success"/>
-        </div>
-    </form>
+    {% if user.is_authenticated %}
+        <form class="form-horizontal" action="{{ request.path }}" method="post"> {% csrf_token %}
+            <div class="col-md-8">
+                <h4>Напишите свой ответ:</h4>
+                <textarea rows="3" cols="60" class="form-control" name="text" placeholder="Ваш ответ"></textarea>
+                <input type="submit" value="Ответить" class="btn btn-success"/>
+            </div>
+        </form>
+    {% else %}
+       <p>Войдите, чтобы написать ответ</p>
+    {% endif %}
 
 
 {% endblock %}
